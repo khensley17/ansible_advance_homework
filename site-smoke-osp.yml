@@ -10,7 +10,8 @@
       - osp.smoke
   - name: check tomcat serving via haproxy
     uri:
-      url: http://frontend1.1a78.example.opentlc.com
+      url: http://frontend1.{{ GUID }}.example.opentlc.com
+    register: webpage
 
   - name: Fail if 'Ansible has done its job' is not in the page content
     fail:
