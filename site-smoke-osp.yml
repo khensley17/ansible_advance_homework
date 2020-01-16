@@ -9,7 +9,7 @@
     tags:
       - osp.smoke
   - name: Curl website
-    command: curl "http://{{item.public_v4}}"
+    command: curl "http://frontend1.{{ ANSIBLE_ADVANCE_GUID }}.example.opentlc.com"
     with_items:
        - "{{ openstack_info.ansible_facts.openstack_servers }}"
     register: webpage
