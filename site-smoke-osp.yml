@@ -10,7 +10,7 @@
       - osp.smoke
   - name: check tomcat serving via haproxy
     uri:
-      url: http://frontend1.4c2f.example.opentlc.com/ansible
+      url: http://frontend1.4c2f.example.opentlc.com
 
   - name: Fail if 'Ansible has done its job' is not in the page content
     fail:
