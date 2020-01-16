@@ -8,11 +8,9 @@
     register: openstack_info
     tags:
       - osp.smoke
-  - name: Curl website
-    command: curl "http://{{item.public_v4}}"
-    with_items:
-       - "{{ openstack_info.ansible_facts.openstack_servers }}"
-    register: webpage
+  - name: check tomcat serving via haproxy
+    uri:
+      url: http://frontend1.{{ GUID }}.example.opentlc.com/ansible
 
   - name: Fail if 'Ansible has done its job' is not in the page content
     fail:
