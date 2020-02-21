@@ -3,18 +3,15 @@
   tasks:
   - name: OpenStack servers
     os_server_facts:
-     cloud: ospcloud
-     server: 'frontend'
+      cloud: ospcloud
+      server: 'frontend'
     register: openstack_info
-    tags:
-      - osp.smoke
-  - name: check tomcat serving via haproxy
-    uri:
-      url: http://frontend1.{{ GUID }}.example.opentlc.com
-    register: webpage
 
-  - name: Fail if 'Ansible has done its job' is not in the page content
+  - name: Curl website
+    command: curl "http://{{item.public_v4}}"
+    with_items:
+       - "{{ openstack_info.ansible_facts.openstack_servers }}"
+    register: webpage
+  - name: Fail
     fail:
-    when: "'Ansible has done its job' not in webpage.results[0].content"
-    tags:
-      - osp.smoke
+    when: "'Ansible' not in webpage.results[0].stdout" 
